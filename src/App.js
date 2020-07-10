@@ -1,26 +1,70 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react'
+import EOM from './components/EOM'
+import { v4 } from 'uuid'
+import ColorList from './components/ColorList'
+import AddColorForm from './components/AddColorForm'
+import BroadMatchModifier from './components/BroadMatchModifier'
+import CapitalizeMachine from './components/CapitalizeMachine'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      colors: []
+    }
+    this.addColor = this.addColor.bind(this)
+    this.rateColor = this.rateColor.bind(this)
+    this.removeColor = this.removeColor.bind(this)
+  }
+
+  addColor(title, color) {
+    const colors = [
+      ...this.state.colors,
+      {
+        id: v4(),
+        title,
+        color,
+        rating: 0
+      }
+    ]
+    this.setState({colors})
+  }
+
+  rateColor(id, rating) {
+    const colors = this.state.colors.map(color => 
+      (color.id !== id) ? 
+        color : 
+        {
+          ...color,
+          rating
+        }
+        )
+        this.setState({colors})
+  }
+
+  removeColor(id) {
+    const colors = this.state.colors.filter(
+      color => color.id !== id
+    )
+    this.setState({colors})
+  }
+
+  render() {
+    const { addColor, rateColor, removeColor } = this;
+    const { colors } = this.state;
+    return (
+      <div className="thirtyWidth">
+      <EOM />
+      <BroadMatchModifier />
+      <CapitalizeMachine />
+      <AddColorForm onNewColor={addColor} />
+      <ColorList colors={colors}
+                  onRate={rateColor}
+                  onRemove={removeColor} />
     </div>
-  );
+    )
+  }
 }
 
 export default App;
