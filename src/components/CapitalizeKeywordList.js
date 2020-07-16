@@ -2,7 +2,7 @@ import React from 'react';
 import CapitalizeKeyword from './CapitalizeKeyword';
 
 // Sateless Functional Component
-const KeywordList = ({ keywords=[], onRemove=f=>f }) => 
+const CapitalizeKeywordList = ({ keywords=[], onRemove=f=>f }) => 
     <div>
         {(keywords.length === 0) ?
         <p>No Keywords (Add Keywords)</p> :
@@ -13,4 +13,4 @@ const KeywordList = ({ keywords=[], onRemove=f=>f }) =>
     }
     </div>
 
-export default KeywordList;
+export default CapitalizeKeywordList;

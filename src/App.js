@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { v4 } from 'uuid'
-import KeywordList from './components/KeywordList'
+import CapitalizeKeywordList from './components/CapitalizeKeywordList'
 import BroadKeywordList from './components/BroadKeywordList'
-import AddKeywordForm from './components/AddKeywordForm'
+import AddCapitalizeKeywordForm from './components/AddCapitalizeKeywordForm'
 import AddBroadKeywordForm from './components/AddBroadKeywordForm'
 import AddEomForm from './components/AddEomForm'
 import EOMList from './components/EOMList'
@@ -105,8 +105,8 @@ class App extends Component {
       <EOMList eoms={eoms}
                 onRemove={removeEOM}/>
       <h2>Capitalize Keyword</h2>
-      <AddKeywordForm onNewKeyword={addKeyword} />
-      <KeywordList keywords={keywords}
+      <AddCapitalizeKeywordForm onNewKeyword={addKeyword} />
+      <CapitalizeKeywordList keywords={keywords}
                   onRemove={removeKeyword}
                     />
       <h2>Broad Match Modifier</h2>
