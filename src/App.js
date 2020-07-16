@@ -1,67 +1,119 @@
 import React, { Component } from 'react'
-import EOM from './components/EOM'
 import { v4 } from 'uuid'
-import ColorList from './components/ColorList'
-import AddColorForm from './components/AddColorForm'
-import BroadMatchModifier from './components/BroadMatchModifier'
-import CapitalizeMachine from './components/CapitalizeMachine'
+import KeywordList from './components/KeywordList'
+import BroadKeywordList from './components/BroadKeywordList'
+import AddKeywordForm from './components/AddKeywordForm'
+import AddBroadKeywordForm from './components/AddBroadKeywordForm'
+import AddEomForm from './components/AddEomForm'
+import EOMList from './components/EOMList'
 import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      colors: []
+      keywords: [],
+      broadKeywords: [],
+      eoms: []
     }
-    this.addColor = this.addColor.bind(this)
-    this.rateColor = this.rateColor.bind(this)
-    this.removeColor = this.removeColor.bind(this)
+    this.addKeyword = this.addKeyword.bind(this)
+    this.addBroadKeyword = this.addBroadKeyword.bind(this)
+    this.removeKeyword = this.removeKeyword.bind(this)
+    this.removeBoroadKeyword = this.removeBroadKeyword.bind(this)
+    this.addEOM = this.addEOM.bind(this)
+    this.removeEOM = this.removeEOM.bind(this)
   }
-
-  addColor(title, color) {
-    const colors = [
-      ...this.state.colors,
+  
+  addEOM(grantSpend, grantPercentage, adImpressions, impressionPercentage, adClicks, adClickPercentage, clickThroughRate, conversions, conversionPercentage, topKeyword, topKeywordClicks, secondKeyword, secondKeywordClicks, thirdKeyword, thirdKeywordClicks, fourthKeyword, topHeadline, topDescription, topAdClicks) {
+    const eoms = [
+      ...this.state.eoms,
       {
         id: v4(),
-        title,
-        color,
-        rating: 0
+        grantSpend,
+        grantPercentage,
+        adImpressions,
+        impressionPercentage,
+        adClicks,
+        adClickPercentage,
+        clickThroughRate,
+        conversions,
+        conversionPercentage,
+        topKeyword,
+        topKeywordClicks, 
+        secondKeyword,
+        secondKeywordClicks,
+        thirdKeyword,
+        thirdKeywordClicks,
+        fourthKeyword,
+        topHeadline,
+        topDescription,
+        topAdClicks
       }
     ]
-    this.setState({colors})
+    this.setState({eoms})
   }
 
-  rateColor(id, rating) {
-    const colors = this.state.colors.map(color => 
-      (color.id !== id) ? 
-        color : 
-        {
-          ...color,
-          rating
-        }
-        )
-        this.setState({colors})
+  addKeyword(keyword) {
+    const keywords = [
+      ...this.state.keywords,
+      {
+        id: v4(),
+        keyword,
+      }
+    ]
+    this.setState({keywords})
   }
 
-  removeColor(id) {
-    const colors = this.state.colors.filter(
-      color => color.id !== id
+  addBroadKeyword(broadKeyword) {
+    const broadKeywords = [
+      ...this.state.broadKeywords,
+      {
+        id: v4(),
+        broadKeyword,
+      }
+    ]
+    this.setState({broadKeywords})
+  }
+
+  removeKeyword(id) {
+    const keywords = this.state.keywords.filter(
+        keyword => keyword.id !== id
     )
-    this.setState({colors})
+    this.setState({keywords})
+  }
+
+  removeBroadKeyword(id) {
+    const broadKeywords = this.state.broadKeywords.filter(
+        keyword => keyword.id !== id
+    )
+    this.setState({broadKeywords})
+  }
+
+  removeEOM(id) {
+    const eoms = this.state.eoms.filter(
+      eom => eom.id !== id
+    )
+    this.setState({eoms})
   }
 
   render() {
-    const { addColor, rateColor, removeColor } = this;
-    const { colors } = this.state;
+    const { addKeyword, addBroadKeyword, removeKeyword, removeBoroadKeyword, addEOM, removeEOM } = this;
+    const { keywords, broadKeywords, eoms } = this.state;
     return (
       <div className="thirtyWidth">
-      <EOM />
-      <BroadMatchModifier />
-      <CapitalizeMachine />
-      <AddColorForm onNewColor={addColor} />
-      <ColorList colors={colors}
-                  onRate={rateColor}
-                  onRemove={removeColor} />
+      <AddEomForm onNewEom={addEOM}/>
+      <EOMList eoms={eoms}
+                onRemove={removeEOM}/>
+      <h2>Capitalize Keyword</h2>
+      <AddKeywordForm onNewKeyword={addKeyword} />
+      <KeywordList keywords={keywords}
+                  onRemove={removeKeyword}
+                    />
+      <h2>Broad Match Modifier</h2>
+      <AddBroadKeywordForm onNewBroadKeyword={addBroadKeyword} />
+      <BroadKeywordList broadKeywords={broadKeywords}
+                  onRemove={removeBoroadKeyword}
+                    />
     </div>
     )
   }
