@@ -1,5 +1,5 @@
 import React from 'react';
-import CapitalizeKeyword from './CapitalizeKeyword';
+import CapitalizeKeywordView from './CapitalizeKeywordView';
 
 // Sateless Functional Component
 const CapitalizeKeywordList = ({ keywords=[], onRemove=f=>f }) => 
@@ -7,7 +7,7 @@ const CapitalizeKeywordList = ({ keywords=[], onRemove=f=>f }) =>
         {(keywords.length === 0) ?
         <p>No Keywords (Add Keywords)</p> :
         keywords.map(keyword => 
-            <CapitalizeKeyword key={keyword.id} {...keyword}
+            <CapitalizeKeywordView key={keyword.id} {...keyword}
                     onRemove={() => onRemove(keyword.id)} />
         )    
     }

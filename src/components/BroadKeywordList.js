@@ -1,5 +1,5 @@
 import React from 'react';
-import ConvertBraodMatchKeyword from './ConvertBroadMatchKeyword';
+import BraodMatchKeywordView from './BroadMatchKeywordView';
 
 // Sateless Functional Component
 const BroadKeywordList = ({ broadKeywords=[], onRemove=f=>f }) => 
@@ -7,7 +7,7 @@ const BroadKeywordList = ({ broadKeywords=[], onRemove=f=>f }) =>
         {(broadKeywords.length === 0) ?
         <p>No Keywords (Add Keywords)</p> :
         broadKeywords.map(keyword => 
-            <ConvertBraodMatchKeyword key={keyword.id} {...keyword}
+            <BraodMatchKeywordView key={keyword.id} {...keyword}
                     onRemove={() => onRemove(keyword.id)} />
         )    
     }
