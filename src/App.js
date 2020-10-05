@@ -6,6 +6,8 @@ import AddCapitalizeKeywordForm from './components/AddCapitalizeKeywordForm'
 import AddBroadKeywordForm from './components/AddBroadKeywordForm'
 import AddEomForm from './components/AddEomForm'
 import EOMList from './components/EOMList'
+import AddLowerCaseKeywordForm from './components/AddLowerCaseKeywordForm'
+import LowerCaseKeywordList from './components/LowerCaseKeywordList'
 import './App.css';
 
 class App extends Component {
@@ -14,7 +16,8 @@ class App extends Component {
     this.state = {
       keywords: [],
       broadKeywords: [],
-      eoms: []
+      eoms: [],
+      lowercasekeywords: []
     }
     this.addKeyword = this.addKeyword.bind(this)
     this.addBroadKeyword = this.addBroadKeyword.bind(this)
@@ -22,9 +25,11 @@ class App extends Component {
     this.removeBoroadKeyword = this.removeBroadKeyword.bind(this)
     this.addEOM = this.addEOM.bind(this)
     this.removeEOM = this.removeEOM.bind(this)
+    this.addLowerCaseKeyword = this.addLowerCaseKeyword.bind(this)
+    this.removeLowerCaseKeyword = this.removeLowerCaseKeyword.bind(this)
   }
   
-  addEOM(grantSpend, grantPercentage, adImpressions, impressionPercentage, adClicks, adClickPercentage, clickThroughRate, conversions, conversionPercentage, topKeyword, topKeywordClicks, secondKeyword, secondKeywordClicks, thirdKeyword, thirdKeywordClicks, fourthKeyword, topHeadline, topDescription, topAdClicks) {
+  addEOM(grantSpend, grantPercentage, adImpressions, impressionPercentage, adClicks, adClickPercentage, clickThroughRate, conversions, conversionPercentage, topKeyword, topKeywordClicks, secondKeyword, secondKeywordClicks, thirdKeyword, thirdKeywordClicks, fourthKeyword, fourthKeywordClicks, topHeadline, topDescription, topAdClicks) {
     const eoms = [
       ...this.state.eoms,
       {
@@ -45,6 +50,7 @@ class App extends Component {
         thirdKeyword,
         thirdKeywordClicks,
         fourthKeyword,
+        fourthKeywordClicks,
         topHeadline,
         topDescription,
         topAdClicks
@@ -75,6 +81,17 @@ class App extends Component {
     this.setState({broadKeywords})
   }
 
+  addLowerCaseKeyword(lowercasekeyword) {
+    const lowercasekeywords = [
+      ...this.state.lowercasekeywords,
+      {
+        id: v4(),
+        lowercasekeyword
+      }
+    ]
+    this.setState({lowercasekeywords})
+  }
+
   removeKeyword(id) {
     const keywords = this.state.keywords.filter(
         keyword => keyword.id !== id
@@ -96,9 +113,16 @@ class App extends Component {
     this.setState({eoms})
   }
 
+  removeLowerCaseKeyword(id) {
+    const lowercasekeywords = this.state.lowercasekeywords.filter(
+      keyword => keyword.id !== id
+    )
+    this.setState({lowercasekeywords})
+  }
+
   render() {
-    const { addKeyword, addBroadKeyword, removeKeyword, removeBoroadKeyword, addEOM, removeEOM } = this;
-    const { keywords, broadKeywords, eoms } = this.state;
+    const { addKeyword, addBroadKeyword, removeKeyword, removeBoroadKeyword, addEOM, removeEOM, addLowerCaseKeyword, removeLowerCaseKeyword } = this;
+    const { keywords, broadKeywords, eoms, lowercasekeywords } = this.state;
     return (
       <div className="thirtyWidth">
       <AddEomForm onNewEom={addEOM}/>
@@ -114,6 +138,11 @@ class App extends Component {
       <BroadKeywordList broadKeywords={broadKeywords}
                   onRemove={removeBoroadKeyword}
                     />
+      <h2>Lowercase Keyword</h2>
+      <AddLowerCaseKeywordForm onNewLowerCaseKeyword={addLowerCaseKeyword} />
+      <LowerCaseKeywordList lowercasekeywords={lowercasekeywords}
+                  onRemove={removeLowerCaseKeyword}
+                  />
     </div>
     )
   }
